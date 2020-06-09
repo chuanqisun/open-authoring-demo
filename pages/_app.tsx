@@ -84,11 +84,8 @@ export const EditLink = ({ editMode }: EditLinkProps) => {
   const github = useGithubEditing();
 
   return (
-    // <button onClick={editMode ? github.exitEditMode : github.enterEditMode}>
-    //   {editMode ? "Exit Edit Mode" : "Edit This Site"}
-    // </button>
     <PrimaryButton
-      text={editMode ? "Exit Edit Mode" : "Edit This Site"}
+      text={editMode ? "Exit Edit Mode" : "Fluent UI Button"}
       onClick={editMode ? github.exitEditMode : github.enterEditMode}
     />
   );
