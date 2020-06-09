@@ -8,6 +8,7 @@ import {
   useGithubJsonForm,
   useGithubToolbarPlugins,
 } from "react-tinacms-github";
+import { usePlugin } from "tinacms";
 
 export default function Home({ file }) {
   const formOptions = {
@@ -16,6 +17,7 @@ export default function Home({ file }) {
   };
 
   const [data, form] = useGithubJsonForm(file, formOptions);
+  usePlugin(form);
 
   useGithubToolbarPlugins();
 
