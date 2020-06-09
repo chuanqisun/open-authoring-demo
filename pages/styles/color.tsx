@@ -10,7 +10,7 @@ import {
   useGithubToolbarPlugins,
 } from "react-tinacms-github";
 import { usePlugins } from "tinacms";
-import { InlineForm } from "react-tinacms-inline";
+import { InlineForm, useInlineForm } from "react-tinacms-inline";
 import { MarkdownFieldPlugin, InlineWysiwyg } from "react-tinacms-editor";
 import matter from "gray-matter";
 
@@ -66,3 +66,55 @@ export const getStaticProps: GetStaticProps = async function ({
     },
   };
 };
+
+export function EditToggle() {
+  // Access 'edit mode' controls via `useInlineForm` hook
+  const { status, deactivate, activate } = useInlineForm();
+
+  return (
+    <button
+      onClick={() => {
+        status === "active" ? deactivate() : activate();
+      }}
+    >
+      {status === "active" ? "Preview" : "Edit"}
+    </button>
+  );
+}
+
+export function DiscardButton() {
+  const { form } = useInlineForm();
+
+  /*
+   ** If there are no changes
+   ** to discard, return early
+   */
+  if (form.finalForm.getState().pristine) {
+    return null;
+  }
+
+  return (
+    <button
+      color="primary"
+      onClick={() => {
+        form.finalForm.reset();
+      }}
+    >
+      Discard Changes
+    </button>
+  );
+}
+
+export function SaveButton() {
+  const { form } = useInlineForm();
+
+  /*
+   ** If there are no changes
+   ** to save, return early
+   */
+  if (form.finalForm.getState().pristine) {
+    return null;
+  }
+
+  return <button onClick={form.submit}>Save</button>;
+}

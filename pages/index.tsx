@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 /**
  * Import helpers and GetStaticProps type
  */
@@ -29,6 +30,10 @@ export default function Home({ file }) {
       </Head>
       <main>
         <h1 className="title">{data.title}</h1>
+        {/* <h1 className="title">{data.title}</h1> */}
+        <Link href="/styles/color">
+          <a>Styles/Color</a>
+        </Link>
       </main>
     </div>
   );
