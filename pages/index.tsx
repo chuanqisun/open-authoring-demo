@@ -17,7 +17,7 @@ export default function Home({ file }) {
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>HITS Deisng Lab</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
