@@ -12,6 +12,7 @@ import {
 import { usePlugins } from "tinacms";
 import { InlineForm } from "react-tinacms-inline";
 import { MarkdownFieldPlugin, InlineWysiwyg } from "react-tinacms-editor";
+import matter from "gray-matter";
 
 export default function StylesColor({ file }) {
   const formOptions = {
@@ -47,6 +48,9 @@ export const getStaticProps: GetStaticProps = async function ({
       parse: parseMarkdown,
     });
   }
+
+  const markdownFileString = (await import("../../content/styles.md")).default;
+
   return {
     props: {
       sourceProvider: null,
@@ -54,7 +58,10 @@ export const getStaticProps: GetStaticProps = async function ({
       preview: false,
       file: {
         fileRelativePath: "content/styles.md",
-        data: (await require("../../content/styles.md")).default,
+        data: {
+          frontmatter: matter(markdownFileString).data,
+          markdownBody: matter(markdownFileString).content,
+        },
       },
     },
   };
