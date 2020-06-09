@@ -4,7 +4,10 @@ import Head from "next/head";
  */
 import { getGithubPreviewProps, parseJson } from "next-tinacms-github";
 import { GetStaticProps } from "next";
-import { useGithubJsonForm } from "react-tinacms-github";
+import {
+  useGithubJsonForm,
+  useGithubToolbarPlugins,
+} from "react-tinacms-github";
 
 export default function Home({ file }) {
   const formOptions = {
@@ -13,6 +16,8 @@ export default function Home({ file }) {
   };
 
   const [data, form] = useGithubJsonForm(file, formOptions);
+
+  useGithubToolbarPlugins();
 
   return (
     <div className="container">
