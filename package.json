@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@fluentui/react": "^7.118.1",
     "dotenv": "^8.2.0",
     "gray-matter": "^4.0.2",
     "next": "9.4.4",
