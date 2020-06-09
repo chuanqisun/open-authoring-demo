@@ -1,9 +1,10 @@
 ---
 {}
 ---
+# Color
 
-# heading 1
+## Product color
 
-## heading 2
+## Text color
 
-paragraph
+## Background color
