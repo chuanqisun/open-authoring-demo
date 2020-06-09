@@ -2,35 +2,34 @@ import Head from "next/head";
 /**
  * Import helpers and GetStaticProps type
  */
-import { getGithubPreviewProps, parseJson } from "next-tinacms-github";
+import { getGithubPreviewProps, parseMarkdown } from "next-tinacms-github";
 import { GetStaticProps } from "next";
+import ReactMarkdown from "react-markdown";
 import {
-  useGithubJsonForm,
+  useGithubMarkdownForm,
   useGithubToolbarPlugins,
 } from "react-tinacms-github";
-import { usePlugin } from "tinacms";
+import { usePlugins } from "tinacms";
+import { InlineForm } from "react-tinacms-inline";
+import { MarkdownFieldPlugin, InlineWysiwyg } from "react-tinacms-editor";
 
 export default function StylesColor({ file }) {
   const formOptions = {
     label: "Styles Color",
-    fields: [{ name: "title", component: "text" }],
+    fields: [{ name: "markdownBody", component: "markdown" }],
   };
 
-  const [data, form] = useGithubJsonForm(file, formOptions);
-  usePlugin(form);
+  const [data, form] = useGithubMarkdownForm(file, formOptions);
+  usePlugins([MarkdownFieldPlugin, form]);
 
   useGithubToolbarPlugins();
 
   return (
-    <div className="container">
-      <Head>
-        <title>HITS Deisng Lab</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main>
-        <h1 className="title">{data.title}</h1>
-      </main>
-    </div>
+    <InlineForm form={form}>
+      <InlineWysiwyg name="markdownBody" format="markdown">
+        <ReactMarkdown source={data.markdownBody} />
+      </InlineWysiwyg>
+    </InlineForm>
   );
 }
 
@@ -44,8 +43,8 @@ export const getStaticProps: GetStaticProps = async function ({
   if (preview) {
     return getGithubPreviewProps({
       ...previewData,
-      fileRelativePath: "content/home.json",
-      parse: parseJson,
+      fileRelativePath: "content/styles.md",
+      parse: parseMarkdown,
     });
   }
   return {
@@ -54,8 +53,8 @@ export const getStaticProps: GetStaticProps = async function ({
       error: null,
       preview: false,
       file: {
-        fileRelativePath: "content/home.json",
-        data: (await import("../../content/home.json")).default,
+        fileRelativePath: "content/styles.md",
+        data: (await require("../../content/styles.md")).default,
       },
     },
   };
